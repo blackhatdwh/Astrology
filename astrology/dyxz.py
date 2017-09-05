@@ -1,5 +1,4 @@
 import os, re
-os.system('rm astro_dyxz.html')
 os.system('curl http://www.d1xz.net/yunshi/today/Aries/ > astro_dyxz.html')
 text = open('astro_dyxz.html', 'r').read()
 
@@ -19,3 +18,16 @@ number_pattern = '(?<=幸运颜色</div></li><li><div class="words_t">).*?(?=</d
 number = re.search(number_pattern, text).group(0)
 person_pattern = '(?<=幸运数字</div></li><li><div class="words_t">).*?(?=</div>)'
 person = re.search(person_pattern, text).group(0)
+
+os.system('rm astro_dyxz.html')
+f = open('result.txt', 'a')
+f.write('\n第一星座：\n')
+f.write('综合运势：%s\n' %zonghe)
+f.write('工作运势：%s\n' %work)
+f.write('爱情运势：%s\n' %love)
+f.write('财运运势：%s\n' %fortune)
+f.write('健康运势：%s\n' %health)
+f.write('幸运颜色：%s\n' %color)
+f.write('幸运数字：%s\n' %number)
+f.write('贵人星座：%s\n' %person)
+f.close()

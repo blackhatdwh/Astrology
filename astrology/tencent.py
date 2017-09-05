@@ -1,9 +1,9 @@
 import os, re
-os.system('rm pre_astro_tencent.html')
 os.system('curl http://astro.fashion.qq.com/ | iconv -f gbk > pre_astro_tencent.html')
 text = open('pre_astro_tencent.html', 'r').read()
 target_pattern = '(<h3>白羊座.*?href=")(.*?)(?=")'
 target = re.search(target_pattern, text, re.DOTALL).group(2)
+os.system('rm pre_astro_tencent.html')
 os.system('curl %s | iconv -f gbk > astro_tencent.html' %target)
 text = open('astro_tencent.html', 'r').read()
 
@@ -40,7 +40,16 @@ search_obj = re.search(fortune_pattern, text, re.DOTALL)
 for i in range(2, 7):
     fortune += search_obj.group(i)
 
-print(zonghe)
-print(love)
-print(work)
-print(fortune)
+os.system('rm astro_tencent.html')
+
+f = open('result.txt', 'a')
+f.write('\n腾讯星座：\n')
+f.write('综合运势：%s\n' %zonghe)
+f.write('工作运势：%s\n' %work)
+f.write('爱情运势：%s\n' %love)
+f.write('财运运势：%s\n' %fortune)
+f.write('健康运势：%s\n' %health)
+f.write('幸运颜色：%s\n' %color)
+f.write('幸运数字：%s\n' %number)
+f.write('贵人星座：%s\n' %person)
+f.close()

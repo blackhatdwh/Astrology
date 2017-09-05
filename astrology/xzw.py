@@ -18,6 +18,26 @@ number_pattern = '(?<=幸运数字：</label>).*?(?=</li>)'
 number = re.search(number_pattern, text).group(0)
 person_pattern = '(?<=速配星座：</label>).*?(?=</li>)'
 person = re.search(person_pattern, text).group(0)
+comment_pattern_1 = '(?<=短评：</label>).*?(?=</li>)'
+comment_1 = re.search(comment_pattern_1, text).group(0)
+comment_pattern_2 = '(?<=综合运势</strong><span>).*?(?=</span>)'
+comment_2 = re.search(comment_pattern_2, text).group(0)
+comment_pattern_3 = '(?<=爱情运势</strong><span>).*?(?=</span>)'
+comment_3 = re.search(comment_pattern_3, text).group(0)
+comment_pattern_4 = '(?<=事业学业</strong><span>).*?(?=</span>)'
+comment_4 = re.search(comment_pattern_4, text).group(0)
+comment_pattern_5 = '(?<=财富运势</strong><span>).*?(?=</span>)'
+comment_5 = re.search(comment_pattern_5, text).group(0)
+comment_pattern_6 = '(?<=健康运势</strong><span>).*?(?=</span>)'
+comment_6 = re.search(comment_pattern_6, text).group(0)
+comment = '短评：%s\n综合运势：%s\n爱情运势：%s\n事业学业：%s\n财富运势：%s\n健康运势：%s\n' % (comment_1, comment_2, comment_3, comment_4, comment_5, comment_6)
+
+def convert(val):
+    return str(int(int(val)/16*20)) + '%'
+zonghe = convert(zonghe)
+work = convert(work)
+love = convert(love)
+fortune = convert(fortune)
 
 os.system('rm astro_xzw.html')
 
@@ -31,4 +51,5 @@ f.write('健康运势：%s\n' %health)
 f.write('幸运颜色：%s\n' %color)
 f.write('幸运数字：%s\n' %number)
 f.write('贵人星座：%s\n' %person)
+f.write('%s\n' %comment)
 f.close()

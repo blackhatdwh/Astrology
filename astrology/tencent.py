@@ -15,6 +15,8 @@ number_pattern = '(?<=幸运数字：).*(?=<)'
 number = re.search(number_pattern, text).group(0)
 health_pattern = '(?<=健康运势：).*(?=<)'
 health = re.search(health_pattern, text).group(0)
+comment_pattern = '(?<=maintext">).*(?=</p>)'
+comment = re.search(comment_pattern, text).group(0)
 
 zonghe_pattern = '(综合运势：.*?)<img src="http://mat1.gtimg.com/astro/2014zlk/jrys/xing(\d).jpg" /><img src="http://mat1.gtimg.com/astro/2014zlk/jrys/xing(\d).jpg" /><img src="http://mat1.gtimg.com/astro/2014zlk/jrys/xing(\d).jpg" /><img src="http://mat1.gtimg.com/astro/2014zlk/jrys/xing(\d).jpg" /><img src="http://mat1.gtimg.com/astro/2014zlk/jrys/xing(\d).jpg" />'
 zonghe = ''
@@ -40,7 +42,23 @@ search_obj = re.search(fortune_pattern, text, re.DOTALL)
 for i in range(2, 7):
     fortune += search_obj.group(i)
 
+def convert(val):
+    if val == '12222':
+        return '20%'
+    if val == '11222':
+        return '40%'
+    if val == '11122':
+        return '60%'
+    if val == '11112':
+        return '80%'
+    if val == '11111':
+        return '100%'
 os.system('rm astro_tencent.html')
+
+zonghe = convert(zonghe)
+work = convert(work)
+love = convert(love)
+fortune = convert(fortune)
 
 f = open('result.txt', 'a')
 f.write('\n腾讯星座：\n')
@@ -52,4 +70,5 @@ f.write('健康运势：%s\n' %health)
 f.write('幸运颜色：%s\n' %color)
 f.write('幸运数字：%s\n' %number)
 f.write('贵人星座：%s\n' %person)
+f.write('今日提醒：%s\n' %comment)
 f.close()

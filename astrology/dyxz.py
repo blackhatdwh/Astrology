@@ -18,6 +18,9 @@ number_pattern = '(?<=幸运颜色</div></li><li><div class="words_t">).*?(?=</d
 number = re.search(number_pattern, text).group(0)
 person_pattern = '(?<=幸运数字</div></li><li><div class="words_t">).*?(?=</div>)'
 person = re.search(person_pattern, text).group(0)
+comment_pattern = '(?<=速配星座</div></li></ul><div class="txt"><p>).*?(?=</p>)'
+comment = re.search(comment_pattern, text).group(0)
+
 
 os.system('rm astro_dyxz.html')
 f = open('result.txt', 'a')
@@ -30,4 +33,5 @@ f.write('健康运势：%s\n' %health)
 f.write('幸运颜色：%s\n' %color)
 f.write('幸运数字：%s\n' %number)
 f.write('贵人星座：%s\n' %person)
+f.write('今日提醒：%s\n' %comment)
 f.close()

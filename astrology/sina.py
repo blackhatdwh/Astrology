@@ -1,8 +1,7 @@
 import os, re
 xingzuo = ('Aries', 'Taurus', 'Gemini', 'Cancer', 'leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces')
 f = open('raw_result.txt', 'a')
-f.write('---start---\n')
-f.write('新浪星座\n')
+f.write('"新浪星座":{')
 for xz in xingzuo:
     os.system('curl http://astro.sina.com.cn/fate_day_%s/ > %s_sina.html'%(xz, xz))
     text = open('%s_sina.html'%xz, 'r').read()
@@ -29,7 +28,7 @@ for xz in xingzuo:
     comment_obj = re.search(comment_pattern, text, re.DOTALL)
     comment = ''
     for i in range(1, 5):
-        comment = comment +  comment_obj.group(i) + '\n'
+        comment = comment +  comment_obj.group(i) + '\\n'
     
     
     os.system('rm %s_sina.html'%xz)
@@ -70,15 +69,19 @@ for xz in xingzuo:
     work = convert(work)
     love = convert(love)
     fortune = convert(fortune)
-    f.write('%s\n'%xz.upper())
-    f.write('综合运势：%s\n' %zonghe)
-    f.write('工作运势：%s\n' %work)
-    f.write('爱情运势：%s\n' %love)
-    f.write('财运运势：%s\n' %fortune)
-    f.write('健康运势：%s\n' %health)
-    f.write('幸运颜色：%s\n' %color)
-    f.write('幸运数字：%s\n' %number)
-    f.write('贵人星座：%s\n' %person)
-    f.write('今日提醒：%s\n' %comment)
-f.write('---end---\n')
+    f.write('"%s":{'%xz.upper())
+    f.write('"综合运势":"%s",' %zonghe)
+    f.write('"工作运势":"%s",' %work)
+    f.write('"爱情运势":"%s",' %love)
+    f.write('"财运运势":"%s",' %fortune)
+    f.write('"健康运势":"%s",' %health)
+    f.write('"幸运颜色":"%s",' %color)
+    f.write('"幸运数字":"%s",' %number)
+    f.write('"贵人星座":"%s",' %person)
+    f.write('"今日提醒":"%s"' %comment)
+    if xz != 'Pisces':
+        f.write('},')
+    else:
+        f.write('}}')
+f.write(',')
 f.close()

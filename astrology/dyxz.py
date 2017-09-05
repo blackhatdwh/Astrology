@@ -1,8 +1,7 @@
 import os, re
 xingzuo = ('Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces')
 f = open('raw_result.txt', 'a')
-f.write('---start---\n')
-f.write('第一星座\n')
+f.write('"第一星座":{')
 for xz in xingzuo:
     os.system('curl http://www.d1xz.net/yunshi/today/%s/ > %s_dyxz.html'%(xz, xz))
     text = open('%s_dyxz.html'%xz, 'r').read()
@@ -28,15 +27,19 @@ for xz in xingzuo:
     
     
     os.system('rm %s_dyxz.html'%xz)
-    f.write('%s\n'%xz.upper())
-    f.write('综合运势：%s\n' %zonghe)
-    f.write('工作运势：%s\n' %work)
-    f.write('爱情运势：%s\n' %love)
-    f.write('财运运势：%s\n' %fortune)
-    f.write('健康运势：%s\n' %health)
-    f.write('幸运颜色：%s\n' %color)
-    f.write('幸运数字：%s\n' %number)
-    f.write('贵人星座：%s\n' %person)
-    f.write('今日提醒：%s\n' %comment)
-f.write('---end---\n')
+    f.write('"%s":{'%xz.upper())
+    f.write('"综合运势":"%s",' %zonghe)
+    f.write('"工作运势":"%s",' %work)
+    f.write('"爱情运势":"%s",' %love)
+    f.write('"财运运势":"%s",' %fortune)
+    f.write('"健康运势":"%s",' %health)
+    f.write('"幸运颜色":"%s",' %color)
+    f.write('"幸运数字":"%s",' %number)
+    f.write('"贵人星座":"%s",' %person)
+    f.write('"今日提醒":"%s"' %comment)
+    if xz != 'Pisces':
+        f.write('},')
+    else:
+        f.write('}}')
+f.write(',')
 f.close()

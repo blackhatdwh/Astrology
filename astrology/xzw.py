@@ -54,7 +54,7 @@ for xz in xingzuo:
     f.write('"幸运颜色":"%s",' %color)
     f.write('"幸运数字":"%s",' %number)
     f.write('"贵人星座":"%s",' %person)
-    f.write('"每日提醒":"%s"' %comment)
+    f.write('"今日提醒":"%s"' %comment)
     if xz != 'Pisces':
         f.write('},')
     else:

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import os
 os.system('rm raw_result.txt')
 f = open('raw_result.txt', 'a')

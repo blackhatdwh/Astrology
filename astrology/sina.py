@@ -1,4 +1,4 @@
-import os, re
+import os, re, random
 xingzuo = ('Aries', 'Taurus', 'Gemini', 'Cancer', 'leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces')
 f = open('raw_result.txt', 'a')
 f.write('"新浪星座":{')
@@ -34,11 +34,11 @@ for xz in xingzuo:
     os.system('rm %s_sina.html'%xz)
     def convert(val):
         if val == 'Qing':
-            return '晴'
+            return str(80+random.randint(-20, 20)) + '%'
         if val == 'Yin':
-            return '阴'
+            return str(40+random.randint(-20, 20)) + '%'
         if val == 'DuoYun':
-            return '多云'
+            return str(60+random.randint(-20, 20)) + '%'
         if val == 'ZhenYu':
             return '阵雨'
         if val == 'XiaoYu':
@@ -78,6 +78,7 @@ for xz in xingzuo:
     f.write('"幸运颜色":"%s",' %color)
     f.write('"幸运数字":"%s",' %number)
     f.write('"贵人星座":"%s",' %person)
+    f.write('"开运水晶":"%s",' %crystal)
     f.write('"今日提醒":"%s"' %comment)
     if xz != 'Pisces':
         f.write('},')
